@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import './plugins/element.js'
-// 导入字体图标
 import './assets/fonts/iconfont.css'
 // 导入全局样式表
 import './assets/css/global.css'
+// 导入字体图标
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
@@ -17,7 +16,14 @@ axios.interceptors.request.use(config => {
   return config
 })
 Vue.prototype.$http = axios
-
+Vue.prototype.$msg = function(text, type) {
+  this.$message({
+    message: text,
+    center: true,
+    type: type,
+    customClass: 'my-message'
+  })
+}
 new Vue({
   router,
   render: h => h(App)

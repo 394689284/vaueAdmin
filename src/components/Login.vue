@@ -11,6 +11,7 @@
         :model="loginForm"
         label-width="0px"
         class="login_form"
+        :rules="loginRules"
       >
         <!-- 用户名 -->
         <el-form-item prop="username">
@@ -45,11 +46,44 @@ export default {
       loginForm: {
         username: 'admin',
         password: '123456'
+      },
+      loginRules: {
+        username: {
+          type: 'string',
+          required: true,
+          message: '请输入3-10个字符',
+          trigger: 'blur',
+          min: 3,
+          max: 10
+        },
+        password: {
+          type: 'string',
+          required: true,
+          message: '请输入6-10个字符',
+          trigger: 'blur',
+          min: 6,
+          max: 10
+        }
       }
     }
   },
   methods: {
-    // 点击重置按钮，重置登录表单
+    /** 调用验证和登录接口 */
+    async login() {
+      let result = await this.$refs['loginFormRef'].validate()
+      if (result) {
+        let { data: res } = await this.$http.post('login', this.loginForm)
+        if (res.meta.status !== 200) {
+          return this.$msg(res.meta.msg, 'error')
+        }
+        sessionStorage.setItem('token', res.data.token)
+        this.$msg(res.meta.msg, 'success')
+        this.$router.push({ name: 'home' })
+      }
+    },
+    resetLoginForm() {
+      this.$refs['loginFormRef'].resetFields()
+    }
   }
 }
 </script>
