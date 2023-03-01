@@ -1,32 +1,19 @@
 <template>
-  <div class="login_container">
+  <div class="login_container" slot="title">
     <div class="login_box">
       <!-- 头像区域 -->
       <div class="avatar_box">
         <img src="../assets/logo.png" alt="" />
       </div>
       <!-- 登录表单区域 -->
-      <el-form
-        ref="loginFormRef"
-        :model="loginForm"
-        label-width="0px"
-        class="login_form"
-        :rules="loginRules"
-      >
+      <el-form ref="loginFormRef" :model="loginForm" label-width="0px" class="login_form" :rules="loginRules">
         <!-- 用户名 -->
         <el-form-item prop="username">
-          <el-input
-            v-model="loginForm.username"
-            prefix-icon="iconfont icon-user"
-          ></el-input>
+          <el-input v-model="loginForm.username" prefix-icon="iconfont icon-user"></el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input
-            v-model="loginForm.password"
-            prefix-icon="iconfont icon-3702mima"
-            type="password"
-          ></el-input>
+          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-3702mima" type="password"></el-input>
         </el-form-item>
         <!-- 按钮区域 -->
         <el-form-item class="btns">
@@ -115,6 +102,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
+
     img {
       width: 100%;
       height: 100%;

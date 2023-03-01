@@ -26,5 +26,6 @@ Vue.prototype.$msg = function(text, type) {
 }
 new Vue({
   router,
-  render: h => h(App)
+  render: h => h(App),
+  mounted() {}
 }).$mount('#app')
