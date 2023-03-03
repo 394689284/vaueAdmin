@@ -12,17 +12,16 @@
         <div class="horizon-bar" @click="toggle">
           <pre>|||</pre>
         </div>
-        <el-menu class="el-menu-vertical-demo" background-color="#333744" text-color="#fff" unique-opened :router="true"
-          :default-active="activePath" @select="onSelect" :collapse="!this.isToggle" :collapse-transition="false">
+        <el-menu background-color="#333744" text-color="#fff" unique-opened :router="true" :default-active="activePath"
+          @select="onSelect" :collapse="!this.isToggle" :collapse-transition="false">
           <el-submenu v-for="(item, index) in navList" :key="index" :index="index.toString()">
             <template slot="title">
               <i :class="item.icon"></i>
               <span>{{ item.title }}</span>
             </template>
 
-            <el-menu-item v-for="(item_s, index_s) in item.children" :key="index_s"
-              :index="index.toString() + index_s.toString()"
-              :route="{ name: item_s.route, params: { name: item_s.route } }">
+            <el-menu-item v-for="(item_s, index_s) in item.children" :key="index_s" :index="item_s.route"
+              :route="{ name: item_s.route, params: { breadCrumb: [item.title, item_s.title] } }">
               <template slot="title">
                 <i :class="item_s.icon"></i>{{ item_s.title }}
               </template>
@@ -50,15 +49,15 @@ export default {
           title: '权限管理',
           icon: 'iconfont icon-tijikongjian',
           children: [
-            { title: '角色管理', icon: 'el-icon-menu', route: 'roleManage' },
-            { title: '权限管理', icon: 'el-icon-menu', route: 'roleRight' }
+            { title: '角色列表', icon: 'el-icon-menu', route: 'roleManage' },
+            { title: '权限列表', icon: 'el-icon-menu', route: 'roleRight' }
           ]
         },
         {
           title: '商品管理',
           icon: 'iconfont icon-shangpin',
           children: [
-            { title: '商品管理', icon: 'el-icon-menu', route: 'goodManage' },
+            { title: '商品列表', icon: 'el-icon-menu', route: 'goodManage' },
             { title: '商品分类', icon: 'el-icon-menu', route: 'goodClass' },
             { title: '分类参数', icon: 'el-icon-menu', route: 'classParams' }
           ]
@@ -74,7 +73,7 @@ export default {
           title: '数据统计',
           icon: 'iconfont icon-baobiao',
           children: [
-            { title: '数据统计', icon: 'el-icon-menu', route: 'dataStatis' }
+            { title: '数据报表', icon: 'el-icon-menu', route: 'dataStatis' }
           ]
         }
       ],
@@ -92,13 +91,19 @@ export default {
       this.isToggle = !this.isToggle
       this.isToggle ? this.asideWidth = '200px' : this.asideWidth = '64px'
     },
-    onSelect(index) {
-      sessionStorage.setItem('currentMenu', index)
+    onSelect(index, path) {
+      const item = this.navList[Number(path[0])]
+      const value = [index, [item.title, item.children.find(v => v.route === index).title]]
+      sessionStorage.setItem('currentMenu', JSON.stringify(value))
     }
   },
   created() {
-    const index = sessionStorage.getItem('currentMenu')
-    this.activePath = index
+    let temp = sessionStorage.getItem('currentMenu')
+    if (temp) {
+      temp = JSON.parse(temp)
+      this.activePath = temp[0]
+      this.$router.history.current.params.breadCrumb = temp[1]
+    }
   }
 }
 </script>
@@ -108,6 +113,7 @@ export default {
   height: 100%;
 
   .el-header {
+    padding-left: 0;
     background-color: #373d41;
     display: flex;
     justify-content: space-between;
@@ -133,7 +139,7 @@ export default {
 
   .el-aside {
     background-color: #333744;
-    text-align: center;
+    text-align: left;
 
     .horizon-bar {
       height: 25px;
@@ -152,14 +158,13 @@ export default {
       }
 
       .el-menu-item {
-        padding-left: 60px !important;
+        padding-left: 30px !important;
       }
     }
   }
 
   .el-main {
-    background-color: #e9eef3;
-    text-align: center;
+    background-color: #eaedf1;
   }
 }
 </style>

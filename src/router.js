@@ -15,13 +15,13 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [
-    { path: '/', redirect: '/login' },
+    { path: '/', redirect: '/home' },
     { path: '/login', component: Login, name: 'login' },
     {
       path: '/home',
       component: Home,
       name: 'home',
-      redirect: '/welcome',
+      redirect: '/userList',
       children: [
         { path: '/welcome', component: Welcome, name: 'welcome' },
         { path: '/userList', component: UserList, name: 'userList' },

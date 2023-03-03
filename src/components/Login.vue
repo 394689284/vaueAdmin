@@ -57,15 +57,18 @@ export default {
   methods: {
     /** 调用验证和登录接口 */
     async login() {
-      let result = await this.$refs['loginFormRef'].validate()
-      if (result) {
+      try {
+        await this.$refs['loginFormRef'].validate()
         let { data: res } = await this.$http.post('login', this.loginForm)
         if (res.meta.status !== 200) {
-          return this.$msg(res.meta.msg, 'error')
+          return this.msg(res.meta.msg, 'error')
         }
-        sessionStorage.setItem('token', res.data.token)
-        this.$msg(res.meta.msg, 'success')
+        // sessionStorage.setItem('token', res.data.token)
+        localStorage.setItem('token', res.data.token)
+        this.msg(res.meta.msg, 'success')
         this.$router.push({ name: 'home' })
+      } catch (error) {
+        console.log('规则验证失败')
       }
     },
     resetLoginForm() {
