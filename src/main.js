@@ -62,6 +62,16 @@ Vue.prototype.confirm = function(text, hander, type) {
       })
     })
 }
+Vue.prototype.loopFun = function(data) {
+  if (data.children) {
+    const item = data.children
+    for (let index = 0; index < item.length; index++) {
+      this.loopFun(item[index])
+    }
+  } else {
+    this.selectTree.push(data.id)
+  }
+}
 new Vue({
   router,
   render: h => h(App),

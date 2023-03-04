@@ -1,5 +1,5 @@
 <template>
-  <div class="user-list_container">
+  <div class="container">
     <!-- 导航面包屑-->
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
@@ -332,41 +332,44 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-breadcrumb {
-  font-size: 12px;
-}
-
-.el-card {
-  margin-top: 15px;
-
-  .role-my-label {
-    line-height: 40px;
-
-  }
-
-  .my-header {
-    border-bottom: none;
-
-    .el-input {
-      width: 450px !important;
-    }
-
-    .el-form-item {
-      margin-bottom: 15px;
-    }
-
-    .el-form-item:nth-child(2) {
-      margin-left: 10px;
-    }
-  }
-
-  .el-table {
+.container {
+  .el-breadcrumb {
     font-size: 12px;
-
   }
 
-  .el-pagination {
+  .el-card {
     margin-top: 15px;
+
+    .role-my-label {
+      line-height: 40px;
+
+    }
+
+    .my-header {
+      border-bottom: none;
+
+      .el-input {
+        width: 450px !important;
+      }
+
+      .el-form-item {
+        margin-bottom: 15px;
+      }
+
+      .el-form-item:nth-child(2) {
+        margin-left: 10px;
+      }
+    }
+
+    .el-table {
+      font-size: 12px;
+
+    }
+
+    .el-pagination {
+      margin-top: 15px;
+    }
   }
+
 }
 </style>

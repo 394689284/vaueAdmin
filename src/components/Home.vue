@@ -19,7 +19,6 @@
               <i :class="item.icon"></i>
               <span>{{ item.title }}</span>
             </template>
-
             <el-menu-item v-for="(item_s, index_s) in item.children" :key="index_s" :index="item_s.route"
               :route="{ name: item_s.route, params: { breadCrumb: [item.title, item_s.title] } }">
               <template slot="title">
@@ -77,7 +76,7 @@ export default {
           ]
         }
       ],
-      activePath: '',
+      activePath: 'roleManage',
       isToggle: true,
       asideWidth: '200px'
     }
