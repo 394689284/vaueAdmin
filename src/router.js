@@ -21,7 +21,7 @@ const router = new Router({
       path: '/home',
       component: Home,
       name: 'home',
-      redirect: '/roleManage',
+      redirect: '/roleRight',
       children: [
         { path: '/welcome', component: Welcome, name: 'welcome' },
         { path: '/userList', component: UserList, name: 'userList' },

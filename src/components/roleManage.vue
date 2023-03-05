@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    d
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item, index) in $route.params.breadCrumb" :key="index">{{ item }}</el-breadcrumb-item>
@@ -308,6 +307,11 @@ export default {
 <style lang="less" scoped>
 .container {
   height: 100%;
+
+  .el-card {
+    margin-top: 10px;
+    font-size: 12px;
+  }
 
   .el-button-group {
     display: flex;
